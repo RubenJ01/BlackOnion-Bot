@@ -1,6 +1,5 @@
 package com.github.black0nion.blackonionbot.systems.language;
 
-import lombok.extern.slf4j.Slf4j;
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.loader.SchemaLoader;
 import org.json.JSONObject;
@@ -9,6 +8,8 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Objects;
@@ -17,8 +18,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-@Slf4j
 public class LanguageTest {
+	private static final Logger log = LoggerFactory.getLogger(LanguageTest.class);
 
 	private static Schema languageSchema;
 	private static List<Language> translations;
