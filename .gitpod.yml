@@ -7,3 +7,7 @@ tasks:
 
 image:
   file: .gitpod.dockerfile
+
+ports:
+  - port: 187
+    name: API
