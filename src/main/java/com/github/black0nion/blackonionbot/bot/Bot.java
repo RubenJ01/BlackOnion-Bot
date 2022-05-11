@@ -71,7 +71,7 @@ public class Bot extends ListenerAdapter {
 	}
 	private JDA jda;
 
-	public JDA getJda() {
+	public JDA getJDA() {
 		return jda;
 	}
 
@@ -209,7 +209,7 @@ public class Bot extends ListenerAdapter {
 	@Override
 	public void onDisconnect(final DisconnectEvent event) {
 		final CloseCode closeCode = event.getCloseCode();
-		logger.error("Disconnected from Discord! Code: " + (closeCode != null ? closeCode.name() + " = " + closeCode.getMeaning() : "NONE"));
+		logger.error("Disconnected from Discord! Code: {}", (closeCode != null ? closeCode.name() + " = " + closeCode.getMeaning() : "NONE"));
 	}
 
 	@Override

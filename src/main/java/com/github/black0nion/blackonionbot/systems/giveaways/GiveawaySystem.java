@@ -43,7 +43,7 @@ public class GiveawaySystem {
 
 		Bot.getInstance().getExecutor().submit(() -> {
 			try {
-				Bot.getInstance().getJda().awaitReady();
+				Bot.getInstance().getJDA().awaitReady();
 			} catch (final InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -79,7 +79,7 @@ public class GiveawaySystem {
 
 	public static void scheduleGiveaway(final Giveaway giveaway) {
 		final Date endDate = giveaway.endDate();
-		final BlackGuild guild = BlackGuild.from(Bot.getInstance().getJda().getGuildById(giveaway.guildId()));
+		final BlackGuild guild = BlackGuild.from(Bot.getInstance().getJDA().getGuildById(giveaway.guildId()));
 		assert guild != null;
 		Objects.requireNonNull(guild.getTextChannelById(giveaway.channelId())).retrieveMessageById(giveaway.messageId()).queue(msg -> {
 			if (msg == null) {
@@ -94,7 +94,7 @@ public class GiveawaySystem {
 	public static void endGiveaway(final Giveaway giveaway, final Message msg, final BlackGuild guild) {
 		try {
 			msg.retrieveReactionUsers("\uD83C\uDF89").queue(users -> {
-				final SelfUser selfUser = Bot.getInstance().getJda().getSelfUser();
+				final SelfUser selfUser = Bot.getInstance().getJDA().getSelfUser();
 				if (users.size() == 0 || users.stream().noneMatch(user -> (user.getIdLong() != selfUser.getIdLong()))) {
 					msg.editMessageEmbeds(EmbedUtils.getSuccessEmbed(null, guild).setTitle("GIVEAWAY").addField("nowinner", "nobodyparticipated", false).build()).queue();
 					deleteGiveaway(giveaway);

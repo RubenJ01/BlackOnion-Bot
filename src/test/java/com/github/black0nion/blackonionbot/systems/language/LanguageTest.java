@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-public class LanguageTest {
+class LanguageTest {
 	private static final Logger log = LoggerFactory.getLogger(LanguageTest.class);
 
 	private static Schema languageSchema;
@@ -26,7 +26,7 @@ public class LanguageTest {
 
 	@Test
 	@Order(1)
-	public void test_language_json_schema() {
+	void test_language_json_schema() {
 		JSONObject jsonSchema = new JSONObject(new JSONTokener(Objects.requireNonNull(LanguageTest.class.getResourceAsStream("/translationsschema.json"))));
 
 		assertNotNull(languageSchema = SchemaLoader.load(jsonSchema));
@@ -35,7 +35,7 @@ public class LanguageTest {
 
 	@Test
 	@Order(2)
-	public void test_languages_against_json_schema() {
+	void test_languages_against_json_schema() {
 		assumeTrue(languageSchema != null);
 
 		AtomicBoolean defaultLangFound = new AtomicBoolean(false);
@@ -57,7 +57,7 @@ public class LanguageTest {
 
 	@Test
 	@Order(3)
-	public void test_language_dummy_translation() {
+	void test_language_dummy_translation() {
 		assumeTrue(translations != null);
 
 		translations.forEach(m -> assertNotNull(m.getTranslation("dummy")));
