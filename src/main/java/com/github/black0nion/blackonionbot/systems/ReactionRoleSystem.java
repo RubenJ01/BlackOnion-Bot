@@ -13,7 +13,7 @@ import java.util.Objects;
 // TODO: extract common part
 public class ReactionRoleSystem extends ListenerAdapter {
 
-	public static final MongoCollection<Document> collection = MongoDB.DATABASE.getCollection("reactionroles");
+	public static final MongoCollection<Document> collection = MongoDB.getInstance().getDatabase().getCollection("reactionroles");
 
 	@Override
 	public void onMessageReactionAdd(final MessageReactionAddEvent e) {

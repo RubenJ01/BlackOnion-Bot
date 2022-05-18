@@ -128,13 +128,13 @@ public class Bot extends ListenerAdapter {
 		SysOutOverSLF4J.sendSystemOutAndErrToSLF4J();
 		ConfigManager.loadConfig();
 		DockerManager.init();
-		logger.info("Starting BlackOnion-Bot in " + Config.run_mode + " mode...");
+		logger.info("Starting BlackOnion-Bot in " + Config.getInstance().getRunMode() + " mode...");
 		//noinspection ResultOfMethodCallIgnored
 		new File("files").mkdirs();
 
-		MongoManager.connect(Config.mongo_connection_string);
+		MongoManager.connect(Config.getInstance().getMongoConnectionString());
 
-		final JDABuilder builder = JDABuilder.createDefault(Config.token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_VOICE_STATES, GatewayIntent.GUILD_MESSAGE_REACTIONS)
+		final JDABuilder builder = JDABuilder.createDefault(Config.getInstance().getToken(), GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_VOICE_STATES, GatewayIntent.GUILD_MESSAGE_REACTIONS)
 			.disableCache(EnumSet.of(CacheFlag.CLIENT_STATUS, CacheFlag.ACTIVITY, CacheFlag.EMOTE))
 			.enableCache(CacheFlag.VOICE_STATE)
 			.setMemberCachePolicy(MemberCachePolicy.ALL)

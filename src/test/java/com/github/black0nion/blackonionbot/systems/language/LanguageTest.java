@@ -1,5 +1,6 @@
 package com.github.black0nion.blackonionbot.systems.language;
 
+import lombok.extern.slf4j.Slf4j;
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.loader.SchemaLoader;
 import org.json.JSONObject;
@@ -16,6 +17,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
+@Slf4j
 public class LanguageTest {
 
 	private static Schema languageSchema;
@@ -27,7 +29,7 @@ public class LanguageTest {
 		JSONObject jsonSchema = new JSONObject(new JSONTokener(Objects.requireNonNull(LanguageTest.class.getResourceAsStream("/translationsschema.json"))));
 
 		assertNotNull(languageSchema = SchemaLoader.load(jsonSchema));
-		System.out.println("Loaded schema: " + languageSchema);
+		log.info("Loaded schema: " + languageSchema);
 	}
 
 	@Test
@@ -47,7 +49,7 @@ public class LanguageTest {
 				}
 			}).toList();
 
-		System.out.println("Loaded languages: " + translations);
+		log.info("Loaded languages: " + translations);
 
 		assertTrue(translations.size() > 0);
 	}
@@ -60,6 +62,6 @@ public class LanguageTest {
 		translations.forEach(m -> assertNotNull(m.getTranslation("dummy")));
 		translations.forEach(m -> assertNotNull(m.getFullName()));
 		translations.forEach(m -> assertTrue(m.getFullName().matches("[A-Z][a-z]+ \\([A-Z]{2}\\)")));
-		System.out.println("List contains dummy translations: " + translations.stream().map(lang -> lang.getTranslationNonNull("dummy")).toList());
+		log.info("List contains dummy translations: " + translations.stream().map(lang -> lang.getTranslationNonNull("dummy")).toList());
 	}
 }

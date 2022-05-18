@@ -37,7 +37,7 @@ public class StatusCommand extends SlashCommand {
 			cmde.send("invalidrole");
 			return;
 		}
-		Config.online_status = status;
+		Config.getInstance().setOnlineStatus(status);
 		ConfigManager.saveConfig();
 		cmde.send("newstatus", new Placeholder("status", status.name()));
 
@@ -45,6 +45,6 @@ public class StatusCommand extends SlashCommand {
 	}
 
 	public static OnlineStatus getStatusFromConfig() {
-		return Optional.ofNullable(Config.online_status).orElse(OnlineStatus.ONLINE);
+		return Optional.ofNullable(Config.getInstance().getOnlineStatus()).orElse(OnlineStatus.ONLINE);
 	}
 }

@@ -16,7 +16,6 @@ import org.jetbrains.annotations.NotNull;
 import java.time.Instant;
 
 import static com.github.black0nion.blackonionbot.bot.BotInformation.*;
-import static com.github.black0nion.blackonionbot.utils.config.Config.metadata;
 
 public class StatsCommand extends SlashCommand {
 
@@ -33,13 +32,13 @@ public class StatsCommand extends SlashCommand {
 				.success()
 				.setTitle("Bot Stats")
 				.addField("prefix", "/", true)
-				.addField("runmode", Config.run_mode.name().toUpperCase(), true)
+				.addField("runmode", Config.getInstance().getRunMode().name().toUpperCase(), true)
 				.addField("os", OS_NAME, true)
 				.addField("cpuname", CPU_NAME, true)
 				.addField("cpucores", OS_BEAN.getAvailableProcessors(), true)
 				.addField("cpuspeed", CPU_MHZ, true)
-				.addField("lines", metadata.lines_of_code(), true)
-				.addField("files", metadata.files(), true)
+				.addField("lines", Config.getInstance().getMetadata().lines_of_code(), true)
+				.addField("files", Config.getInstance().getMetadata().files(), true)
 				.addField("commandsexecuted", (int) StatisticsManager.TOTAL_COMMANDS_EXECUTED.get(), true)
 				.addField("messagessent", (int) StatisticsManager.TOTAL_MESSAGES_SENT.get(), true)
 				.addField("commands", SlashCommandBase.commands.size(), true)
@@ -47,7 +46,7 @@ public class StatsCommand extends SlashCommand {
 				.addField("usercount", StatisticsManager.getUserCount(), true)
 				.addField("guildcount", StatisticsManager.getGuildCount(), true)
 				.addField("uptime", Utils.parseDate(diff), true)
-				.addField("version", Config.metadata.version(), true)
+				.addField("version", Config.getInstance().getMetadata().version(), true)
 				.setThumbnail(e.getJDA().getSelfUser().getAvatarUrl() + "?size=512")
 				.setTimestamp(Instant.now())
 			);

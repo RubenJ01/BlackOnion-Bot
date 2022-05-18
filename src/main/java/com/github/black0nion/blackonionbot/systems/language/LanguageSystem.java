@@ -5,14 +5,17 @@ import com.github.black0nion.blackonionbot.wrappers.jda.BlackGuild;
 import com.github.black0nion.blackonionbot.wrappers.jda.BlackUser;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 public class LanguageSystem {
+
+	private static final Logger log = LoggerFactory.getLogger(LanguageSystem.class);
 
 	private static final HashMap<String, Language> languages = new HashMap<>();
 	private static Language defaultLocale;
@@ -23,7 +26,7 @@ public class LanguageSystem {
 		languages.clear();
 		AtomicBoolean hasDefault = new AtomicBoolean(false);
 		new Reflections("translations", Scanners.Resources).getResources("[A-Z][a-z]+\\.json").stream()
-			.peek(lang -> System.out.println("Loading language stored in file: " + lang))
+			.peek(lang -> log.info("Loading language stored in file: " + lang))
 			.map(Language::new)
 			.peek(lang -> {
 				if (lang.isDefault()) {
@@ -48,17 +51,14 @@ public class LanguageSystem {
 		try {
 			final Language userLang = author.getLanguage();
 			if (userLang != null) return userLang;
-		} catch (final Exception ignored) {
-		}
+		} catch (final Exception ignored) {}
 		try {
 			final Language guildLang = guild.getLanguage();
 			if (guildLang != null) return guildLang;
-		} catch (final Exception ignored) {
-		}
+		} catch (final Exception ignored) {}
 		try {
 			return defaultLocale;
-		} catch (final Exception ignored) {
-		}
+		} catch (final Exception ignored) {}
 		return null;
 	}
 

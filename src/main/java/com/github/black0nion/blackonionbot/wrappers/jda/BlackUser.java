@@ -152,14 +152,14 @@ public class BlackUser extends UserImpl {
 		return new Document("userid", this.user.getIdLong());
 	}
 
-	private static final MongoCollection<Document> configs = MongoManager.getCollection("usersettings", MongoDB.DATABASE);
+	private static final MongoCollection<Document> configs = MongoManager.getCollection("usersettings", MongoDB.getInstance().getDatabase());
 
 	@Override
 	protected MongoCollection<Document> getCollection() {
 		return configs;
 	}
 
-	private static final MongoCollection<Document> warnsCollection = MongoDB.DATABASE.getCollection("warns");
+	private static final MongoCollection<Document> warnsCollection = MongoDB.getInstance().getDatabase().getCollection("warns");
 	private final List<Warn> warns = new ArrayList<>();
 
 	public void warn(final Warn w) {

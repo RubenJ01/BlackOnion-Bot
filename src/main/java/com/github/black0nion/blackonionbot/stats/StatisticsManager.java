@@ -30,7 +30,7 @@ public class StatisticsManager extends ListenerAdapter {
 	private static final String NAMESPACE = "blackonionbot";
 
 	static {
-		final BotMetadata metadata = Config.metadata;
+		final BotMetadata metadata = Config.getInstance().getMetadata();
 		Gauge.build()
 			.name("info")
 			.help("Build information")
@@ -38,7 +38,7 @@ public class StatisticsManager extends ListenerAdapter {
 			.labelNames("run_mode", "version", "lines_of_code", "files")
 			.register()
 			.labels(
-				Config.run_mode.name(),
+				Config.getInstance().getRunMode().name(),
 				metadata.version(),
 				String.valueOf(metadata.lines_of_code()),
 				String.valueOf(metadata.files()))

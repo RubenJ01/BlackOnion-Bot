@@ -94,7 +94,7 @@ public class CommandBase extends ListenerAdapter {
 		final String[] args = msgContent.split(" ");
 
 		boolean locked = BanUsageCommand.collection.find(Filters.or(Filters.eq("guildid", guild.getIdLong()), Filters.eq("userid", author.getIdLong()))).first() != null;
-		if (Config.run_mode == RunMode.DEV) {
+		if (Config.getInstance().getRunMode() == RunMode.DEV) {
 			if (locked) logger.warn(log);
 			else logger.info(log);
 			FileUtils.appendToFile("files/logs/messagelog/" + guild.getId() + "/" + EmojiParser.parseToAliases(channel.getName()).replaceAll(":([^:\\s]*(?:::[^:\\s]*)*):", "($1)").replace(":", "_") + "_" + channel.getId() + ".log", author.getName() + "#" + author.getDiscriminator() + "(U:" + author.getId() + "): (M:" + message.getId() + ")" + msgContent.replace("\n", "\\n") + attachmentsString);
