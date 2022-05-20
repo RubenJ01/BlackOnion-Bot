@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class LanguageTest {
-	private static final Logger log = LoggerFactory.getLogger(LanguageTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(LanguageTest.class);
 
 	private static Schema languageSchema;
 	private static List<Language> translations;
@@ -30,7 +30,7 @@ class LanguageTest {
 		JSONObject jsonSchema = new JSONObject(new JSONTokener(Objects.requireNonNull(LanguageTest.class.getResourceAsStream("/translationsschema.json"))));
 
 		assertNotNull(languageSchema = SchemaLoader.load(jsonSchema));
-		log.info("Loaded schema: " + languageSchema);
+		logger.info("Loaded schema: '{}'", languageSchema);
 	}
 
 	@Test
@@ -50,7 +50,7 @@ class LanguageTest {
 				}
 			}).toList();
 
-		log.info("Loaded languages: " + translations);
+		logger.info("Loaded languages: '{}'", translations);
 
 		assertTrue(translations.size() > 0);
 	}
@@ -63,6 +63,6 @@ class LanguageTest {
 		translations.forEach(m -> assertNotNull(m.getTranslation("dummy")));
 		translations.forEach(m -> assertNotNull(m.getFullName()));
 		translations.forEach(m -> assertTrue(m.getFullName().matches("[A-Z][a-z]+ \\([A-Z]{2}\\)")));
-		log.info("List contains dummy translations: " + translations.stream().map(lang -> lang.getTranslationNonNull("dummy")).toList());
+		logger.info("List contains dummy translations: '{}'", translations.stream().map(lang -> lang.getTranslationNonNull("dummy")).toList());
 	}
 }

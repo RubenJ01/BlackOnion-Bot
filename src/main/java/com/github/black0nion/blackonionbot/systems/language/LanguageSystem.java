@@ -14,6 +14,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 public class LanguageSystem {
+	private LanguageSystem() {}
+	private static final Logger logger = LoggerFactory.getLogger(LanguageSystem.class);
 
 	private static final Logger log = LoggerFactory.getLogger(LanguageSystem.class);
 
@@ -26,7 +28,7 @@ public class LanguageSystem {
 		languages.clear();
 		AtomicBoolean hasDefault = new AtomicBoolean(false);
 		new Reflections("translations", Scanners.Resources).getResources("[A-Z][a-z]+\\.json").stream()
-			.peek(lang -> log.info("Loading language stored in file: " + lang))
+			.peek(lang -> log.info("Loading language stored in file: {}", lang))
 			.map(Language::new)
 			.peek(lang -> {
 				if (lang.isDefault()) {
