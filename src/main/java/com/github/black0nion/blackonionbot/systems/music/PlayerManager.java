@@ -18,7 +18,6 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.managers.AudioManager;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.LoggerFactory;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
@@ -116,7 +115,7 @@ public class PlayerManager {
 					final List<AudioTrack> trackz = playlist.getTracks().subList(0, (playlist.getTracks().size() > 10 ? 9 : playlist.getTracks().size()));
 					for (int i = 0; i < trackz.size(); i++) {
 						final AudioTrack track = trackz.get(i);
-						builder.addField(Utils.emojis[i] + " " + track.getInfo().title, "By: " + track.getInfo().author, false);
+						builder.addField(Utils.EMOJIS[i] + " " + track.getInfo().title, "By: " + track.getInfo().author, false);
 					}
 					channel.sendMessageEmbeds(builder.build()).queue(msg -> {
 						for (int i = 0; i < trackz.size(); i++) {
